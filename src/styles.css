@@ -23,21 +23,21 @@ button:focus {
     grid-gap: 20px;
 }
 
-.photo-card {
+.photo-cards {
     background-color: rgba(255, 186, 116, 0.9);
     border: 2px solid #0d161b;
     border-radius: 10px;
     padding: 15px;
 }
 
-.img_wrap {
+.img-wrapper {
     height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.gallery_link {
+.gallery-link {
     display: block;
     text-decoration: none;
     color: #0d161b;
