@@ -1,9 +1,58 @@
-button {
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #faf0e6;
+    color: #212121;
+    line-height: 1.5;
+}
+
+.is-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
+.search-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0 20px 0;
+    background: rgba(212, 250, 185, 0.959);
+    box-shadow: 2px 1px 2px 0px rgba(212, 250, 185, 0.959);
+    -webkit-box-shadow: 2px 1px 2px 0px rgba(212, 250, 185, 0.959);
+    -moz-box-shadow: 2px 1px 2px 0px rgba(212, 250, 185, 0.959);
+}
+
+input {
+    width: 300px;
+    height: 40px;
+    padding: 5px 5px 5px 15px;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+.submit {
     display: inline-block;
     text-align: center;
     padding: 10px 20px;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 1000;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -11,21 +60,20 @@ button {
     color: #fff;
 }
 
-button:hover,
-button:focus {
+.submit:hover,
+.submit:focus {
     background-color: #5c4ef1;
 }
 
 .gallery {
-    margin-top: 30px;
+    margin-top: 60px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
 }
 
 .photo-cards {
-    background-color: rgba(255, 186, 116, 0.9);
-    border: 2px solid #0d161b;
+    background-color: rgba(132, 255, 116, 0.767);
     border-radius: 10px;
     padding: 15px;
 }
@@ -35,6 +83,15 @@ button:focus {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #0d161b;
+    border-radius: 5px;
 }
 
 .gallery-link {

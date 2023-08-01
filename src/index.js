@@ -16,7 +16,7 @@ const refs = {
 
 const notifyParams = {
     position: 'center-center',
-    timeout: 4000,
+    timeout: 2000,
     width: '400px',
     fontSize: '24px'
 };
@@ -50,7 +50,7 @@ function onSubmit(e) {
         .then(data => {
             const resultSearch = data.hits;
             if (data.totalHits === 0) {
-                Notify.failure('Sorry, there are no images matching your search query!', notifyParams);
+                Notify.failure('Sorry, there are no images matching your search query. Please try again.', notifyParams);
             } else {
                 Notify.info(`Hooray! We found ${data.totalHits} images.`, notifyParams);
                 createMarkup(resultSearch);
@@ -67,25 +67,6 @@ function onSubmit(e) {
     refs.loadMoreBtn.addEventListener('click', onClickBtnLoadMore);
 
     e.currentTarget.reset();
-};
-
-function onClickBtnLoadMore() {
-    page += 1;
-    fetchPhoto(searchPhotoKey, page, perPage)
-        .then(data => {
-            const searchResult = data.hits;
-            const pageNumber = Math.ceil(data.totalHits / perPage);
-            
-            createMarkup(searchResult);
-            if (page === pageNumber) {
-                loadMoreBtn.classList.add('is-hidden');
-                Notify.info("We're sorry, but you've reached the end of search results.", notifyParams);
-                btnLoadMore.removeEventListener('click', onClickBtnLoadMore);
-                window.removeEventListener('scroll', showLoadMorePages);
-            };
-            lightbox.refresh();
-        })
-        .catch(onFetchError);
 };
 
 function createMarkup(searchResult) {
@@ -114,3 +95,38 @@ function createMarkup(searchResult) {
     });
     refs.gallery.insertAdjacentHTML("beforeend", photosArr.join(''));
 };
+
+function onClickBtnLoadMore() {
+    page += 1;
+    fetchPhoto(searchPhotoKey, page, perPage)
+        .then(data => {
+            const searchResult = data.hits;
+            const pageNumber = Math.ceil(data.totalHits / perPage);
+            
+            createMarkup(searchResult);
+            if (page === pageNumber) {
+                refs.loadMoreBtn.classList.add('is-hidden');
+                Notify.info("We're sorry, but you've reached the end of search results.", notifyParams);
+                refs.loadMoreBtn.removeEventListener('click', onClickBtnLoadMore);
+                window.removeEventListener('scroll', showLoadMorePages);
+            };
+            lightbox.refresh();
+        })
+        .catch(onFetchError);
+};
+
+function onFetchError() {
+    Notify.failure('Oops! Something went wrong! Try reloading the page or make another choice!', notifyParams);
+};
+
+function showLoadMorePages() {
+    if (pageEnd()) {
+        onClickBtnLoadMore();
+    };
+};
+
+function pageEnd() {
+    return (
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight
+    );
+}
